@@ -27,5 +27,5 @@ clean:
 
 
 dbuild:
-	docker run --rm -v $(PWD):/usr/src/$(APP) -w /usr/src/$(APP) golang:1.3 ls -la
+	docker run --rm -v $(PWD):/usr/src/$(APP) -w /usr/src/$(APP) golang:1.3 make
 
