@@ -123,5 +123,5 @@ func main() {
 		os.Exit(-1)
 	}
 
-	fmt.Printf("%s %s %s\n", time.Now().Format(time.RFC3339), config.Name, ip);
+	fmt.Printf("%s %s %s", time.Now().Format(time.RFC3339), config.Name, ip);
 }
