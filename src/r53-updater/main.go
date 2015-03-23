@@ -25,6 +25,7 @@ import "fmt"
 import "os"
 import "net/http"
 import "io/ioutil"
+import "time"
 
 import "github.com/BurntSushi/toml"
 
@@ -121,4 +122,6 @@ func main() {
 		fmt.Printf("Failed to update %s: %+v\n", config.Name, err)
 		os.Exit(-1)
 	}
+
+	fmt.Printf("%s %s %s\n", time.Now().Format(time.RFC3339), config.Name, ip);
 }
