@@ -56,6 +56,10 @@ func getIp() (string, error) {
 	return string(body), nil
 }
 
+func tstamp() string {
+	return time.Now().Format(time.RFC3339)
+}
+
 func usage() {
 	fmt.Printf("usage: r53-updater <options>\n")
 	fmt.Printf(" options:\n")
@@ -80,8 +84,8 @@ func main() {
 	config := &Config{ TTL: 180 }
 	_, err := toml.DecodeFile(ARG_CONFIG_FILE, config)
 	if err != nil {
-		fmt.Printf("Failed to load config file %s: %+v\n",
-			ARG_CONFIG_FILE, err)
+		fmt.Printf("%s Failed to load config file %s: %+v\n",
+			tstamp(), ARG_CONFIG_FILE, err)
 		os.Exit(-1)
 	}
 
@@ -92,7 +96,7 @@ func main() {
 	// Get the current IP
 	ip, err := getIp()
 	if err != nil {
-		fmt.Printf("Failed to get IP: %+\vn", err)
+		fmt.Printf("%s Failed to get IP: %+\vn", tstamp(), err)
 		os.Exit(-1)
 	}
 
@@ -119,9 +123,9 @@ func main() {
 	// Make the change
 	_, err = r53.ChangeResourceRecordSets(config.ZoneID, change)
 	if err != nil {
-		fmt.Printf("Failed to update %s: %+v\n", config.Name, err)
+		fmt.Printf("%s Failed to update %s: %+v\n", tstamp(), config.Name, err)
 		os.Exit(-1)
 	}
 
-	fmt.Printf("%s %s %s", time.Now().Format(time.RFC3339), config.Name, ip);
+	fmt.Printf("%s %s %s", tstamp(), config.Name, ip);
 }
