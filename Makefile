@@ -25,3 +25,7 @@ clean:
 	@mkdir .vendor
 	(cd .vendor && GOPATH=$(TOP)/.vendor go get github.com/nitrous-io/goop)
 
+
+dbuild:
+	docker run --rm -v $(PWD):/usr/src/$(APP) -w /usr/src/$(APP) golang:1.3 ls -la
+
